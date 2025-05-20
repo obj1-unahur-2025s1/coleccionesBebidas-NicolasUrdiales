@@ -1,30 +1,43 @@
 object tito {
-    var cantidad = 0
-    var bebida = cianuro
-    method peso() = 70
-    method inerciaBase() = 490
-    method consumir(unaCantidad,unaBebida) {
-        bebida = unaBebida
-        cantidad = unaCantidad
-    }
-    method bebida() = bebida
+  var ultimaBebida = whisky
+  var rendimientoBebida = 0
+  method peso() = 70
+  method inerciaInicial() = 490
+  method consumir(cantidad, bebida){
+    ultimaBebida = bebida
+    rendimientoBebida = bebida.rendimiento(cantidad)
+  }
+  method velocidad() = (rendimientoBebida * self.inerciaInicial()) / self.peso()
 
-    method velocidad() {
-        return bebida.rendimiento(cantidad)
-        * self.inerciaBase() / self.peso()
-    }
+
+
 }
 
-object wisky {
-    method rendimiento(cantidad) = 0.9 ** cantidad
+
+object whisky{
+    method rendimiento(cantidad) = 0.9 ** cantidad 
 }
-object cianuro {
+object terere{
+    method rendimiento(cantidad) = (0.1 * cantidad).max(1)
+}
+object cianuro{
     method rendimiento(cantidad) = 0
 }
 
-object terere {
-    method rendimiento(cantidad) {
-        return 1.max(cantidad * 0.1)
-        //tambien (cantidad * 0.1).max(1)
-    }
+
+
+object licuadoDeFrutas{
+    const nutrientesFrutas = [3,4,8,9,6,10]
+    method agregarFruta(nutriente) {nutrientesFrutas.add(nutriente)}
+    method sumaNutrientes() = nutrientesFrutas.sum()
+    method rendimiento(cantidad) = self.sumaNutrientes() * (cantidad.div(1000))
 }
+
+object aguaSaborizada{
+    var property bebidaMezclada = whisky
+    method rendimiento(cantidad) = 1 + (bebidaMezclada.rendimiento(cantidad) / 4)
+}
+
+
+
+
